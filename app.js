@@ -11,11 +11,9 @@ const bookSchema = require('./models/book');
 require('dotenv').config();
 app.use(cors());
 //  connect to mongdb  with credentiels
-mongoose
-	.connect(`mongodb+srv://${process.env.USER_MONGO}:${process.env.MDP}@cluster0.ptp5m.mongodb.net/dbyounes`)
-	.then((data) => {
-		console.log(data.connection.models.Author);
-	});
+mongoose.connect(`mongodb+srv://younes:sniper@cluster0.ptp5m.mongodb.net/dbyounes`).then((data) => {
+	console.log(data.connection.models.Author);
+});
 //
 mongoose.connection.once('open', (data) => {
 	console.log('connected to db ');
@@ -23,10 +21,9 @@ mongoose.connection.once('open', (data) => {
 
 const schema = require('./schema/schema');
 const author = require('./models/author');
-app.get('/', () => 'llll');
 //enable graphql schema  on node server
 app.use(
-	'/graphql',
+	'/',
 	graphqlHTTP({
 		schema,
 		graphiql: true
