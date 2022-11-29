@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
 const { graphqlHTTP } = require('express-graphql');
+const path = require('path');
 const authorSchema = require('./models/author');
 const bookSchema = require('./models/book');
 // authorSchema.deleteMany().then((res) => console.log(res));
@@ -22,8 +23,11 @@ mongoose.connection.once('open', (data) => {
 const schema = require('./schema/schema');
 const author = require('./models/author');
 //enable graphql schema  on node server
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname + '/index.html'));
+});
 app.use(
-	'/',
+	'/graphql',
 	graphqlHTTP({
 		schema,
 		graphiql: true
